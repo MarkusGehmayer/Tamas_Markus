@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>Rock, Paper, Scissors</title>
+
+</head>
+<body>
+
+<h3>Stein, Papier, Schere, Echse, Spock!</h3>
+<p>Gib deinen Namen ein:</p>
+<input type="text" id="name" value="Spieler" onkeypress="handleKeyPress(event)">
+<input type="button" value="Neues Spiel" onclick="start();"><br>
+<input type="button" id="rock" value="Stein" onclick="choose(1); spiel2();"/>
+<input type="button" id="paper" value="Papier" onclick="choose(2); spiel2();"/>
+<input type="button" id="scissors" value="Schere" onclick="choose(3); spiel2();"/>
+<input type="button" id="lizard" value="Echse" onclick="choose(4); spiel2();"/>
+<input type="button" id="spock" value="Spock" onclick="choose(5); spiel2();"/>
+<div id="game"></div>
+
+<script>
+var game = document.getElementById("game");
+var name = document.getElementById("name").value;
+var plapoints = 0;
+var compoints = 0;
+
+
+function handleKeyPress(e){
+ var key=e.keyCode || e.which;
+  if (key==13){
+     start();
+  }
+}
+
+
+function start() {
+var name = document.getElementById("name").value;
+    if (name) {
+        game.innerHTML = 'Hallo, ' + name + '<br><br>Willkommen zu <strong>Stein, Papier, Schere, Echse, Spock.</strong><br> Eine bekannte Abwandlung des Kultspieles aus der Serie The Big Bang Theory.<br>Mit Klick auf OK geht es los. Falls dir die Lust vergangen ist reicht ein Klick auf Abbrechen.<br>';;
+	  check();
+} else {
+	alert("Bitte gib einen Namen ein!");
+	return;
+}
+}
+
+
+function choose(choice) {
+		if (choice === 1) {
+			userChoice = "Stein";
+			spiel();
+		} else if (choice === 2) {
+			userChoice = "Papier";
+			spiel();
+		} else if (choice === 3) {
+			userChoice = "Schere";
+			spiel();
+		} else if (choice === 4) {
+			userChoice = "Echse";
+			spiel();
+		} else if (choice === 5) {
+			userChoice = "Spock";
+			spiel();
+		} else {
+			return;
+		}
+	}
+
+
+function check() {
+  var r = confirm('Weiter? (Abbrechen zum Beenden)');
+     if (r == true) {
+	game.innerHTML += '<br>Super, dann nochmal kurz die Finger kneten und los.<br><br>';
+	spiel();
+     } else {
+	game.innerHTML += '<br>Schade, dann ein anderes Mal.<br><br>';
+	return;
+     }
+}
+
+function pointcheck() {
+var name = document.getElementById("name").value;
+       if (plapoints === 3) {
+   	  game.innerHTML = '<strong><i>Glückwunsch, du hast das Spiel gewonnen!</i></strong>';
+	  game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+	  game.innerHTML += '<br><br>Nochmal? Wähle einfach erneut aus.<br>Für ein neues Spiel gibt deinen Namen erneut ein und klick auf den entsprechenden Button.';
+	plapoints = 0;
+	compoints = 0;
+   } else if (compoints === 3) {
+   	  game.innerHTML = '<b>Du hast leider verloren!</b>';
+	  game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+	  game.innerHTML += '<br><br>Nochmal? Wähle einfach erneut aus.<br>Für ein neues Spiel gibt deinen Namen erneut ein und klick auf den entsprechenden Button.';
+	plapoints = 0;
+	compoints = 0;
+   } else {
+        spiel();
+   }
+  }
+
+
+/** function user() {
+game.innerHTML += '<br><input type="button" id="rock" value="Stein" onclick="choose(1); spiel2();"/>';
+game.innerHTML += '<input type="button" id="paper" value="Papier" onclick="choose(2); spiel2();"/>';
+game.innerHTML += '<input type="button" id="scissors" value="Schere" onclick="choose(3); spiel2();"/>';
+game.innerHTML += '<input type="button" id="lizard" value="Echse" onclick="choose(4); spiel2();"/>';
+game.innerHTML += '<input type="button" id="spock" value="Spock" onclick="choose(5); spiel2();"/>';
+} **/
+
+
+function spiel() {
+
+var userChoice;
+
+// user();
+
+return;
+
+}
+
+function spiel2() {
+var name = document.getElementById("name").value;
+
+   game.innerHTML = '<strong>Auswahl:</strong><br>' + name + ': ' + userChoice + '<br>';
+
+
+    var computerChoice = Math.random();
+              if (computerChoice < 0.2) {
+        	computerChoice = "Stein";
+         } else if(computerChoice <= 0.4) {
+	        computerChoice = "Papier" ;
+         } else if (computerChoice <= 0.6) {
+	        computerChoice = "Schere" ;
+         } else if (computerChoice <= 0.8) {
+	        computerChoice = "Echse" ;
+         } else {
+	        computerChoice = "Spock" ;
+         }
+    game.innerHTML += 'Computer: ' + computerChoice + '<br><br>';
+
+    var compare = function(choice1, choice2) {
+        if (choice1 === choice2) {
+		game.innerHTML += "Unentschieden! Versuch es nochmal!<br>";
+		game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+                spiel();
+        } else {
+             switch (choice1) {
+                case "Stein":
+                  if (choice2 === "Schere") {
+			game.innerHTML += "Stein schleift Schere. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Echse") {
+			game.innerHTML += "Stein zerquetscht Echse. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Papier") {
+			game.innerHTML += "Papier bedeckt Stein. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else {
+			game.innerHTML += "Spock verdampft Stein. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                }
+                break;
+                case "Papier":
+                  if (choice2 === "Stein") {
+			game.innerHTML += "Papier bedeckt Stein. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Spock") {
+			game.innerHTML += "Papier widerlegt Spock. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Schere") {
+			game.innerHTML += "Schere schneidet Papier. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else {
+			game.innerHTML += "Echse frisst Papier. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                }
+                  break;
+                case "Schere":
+                  if (choice2 === "Papier") {
+			game.innerHTML += "Schere schneidet Papier. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Echse") {
+			game.innerHTML += "Schere köpft Echse. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Stein") {
+			game.innerHTML += "Stein schleift Schere. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else {
+			game.innerHTML += "Spock zertrümmert Schere. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                }
+                  break;
+                case "Echse":
+	          if (choice2 === "Papier") {
+			game.innerHTML += "Echse frisst Papier. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Spock") {
+			game.innerHTML += "Echse vergiftet Spock. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Schere") {
+			game.innerHTML += "Schere köpft Echse. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else {
+			game.innerHTML += "Stein zerquestscht Echse. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                }
+                  break;
+                case "Spock":
+		  if (choice2 === "Schere") {
+			game.innerHTML += "Spock zertrümmert Schere. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Stein") {
+			game.innerHTML += "Spock verdampft Stein. <i>Du gewinnst!</i><br>Nochmal?";
+			plapoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else if (choice2 === "Papier") {
+			game.innerHTML += "Papier widerlegt Spock. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                } else {
+			game.innerHTML += "Echse vergiftet Spock. <b>Du verlierst!</b><br>Nochmal?";
+			compoints++;
+			game.innerHTML += "<br><br><strong>Punktestand: </strong><br>" + name + ": " + plapoints + "<br>Computer: " + compoints;
+				pointcheck();
+                }
+                  break;
+                default:
+			game.innerHTML += "<b>Falsche Eingabe! Versuch es nochmal!<br>(Groß- und Kleinschreibung beachten!)</b><br><br>";
+		    	spiel();
+	     }
+        }
+ 
+}
+
+	compare(userChoice, computerChoice);
+	
+}
+  
+  
+</script>
+
+
+</body>
+</html>
