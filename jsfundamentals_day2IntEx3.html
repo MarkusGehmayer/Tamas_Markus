@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>Test</title>
+    
+    <style>
+    
+      /* --- Formatierung für die Boxen --- */
+      
+      body {
+        font-family: Arial;
+      }
+      
+      #EINS {
+        float: left;
+        padding: 10%;
+        color: blue;
+        border-style: dashed;
+      }
+      
+      #ZWEI {
+        float: right;
+        padding: 10%;
+        color: red;
+        border-style: dashed;
+      }
+    </style>
+    
+</head>
+<body>
+
+<!-- mouseover BEGINN -->
+<p id="EINS" onmouseover="zgNr1()">BLAUE BOX</p>
+<p id="ZWEI" onmouseover="zgNr2()">ROTE BOX</p>
+<br>
+<center><p id="VERGLEICH">Zahlenvergleich!</p></center>
+<!-- mouseover ENDE -->
+
+<script>
+      var linkeBox /* globale Variablen verwenden !!! - da sonst nur in Funktion! */
+      var rechteBox
+      
+      function vergleich(){
+        if (linkeBox < rechteBox) {
+          document.getElementById("VERGLEICH").innerHTML = "die ROTE Box hat den höheren Zahlenwert";
+        } else if (linkeBox > rechteBox) {
+          document.getElementById("VERGLEICH").innerHTML = "die BLAUE Box hat den höheren Zahlenwert";
+        } else {
+          document.getElementById("VERGLEICH").innerHTML = "beide Boxen weisen den GLEICHEN Zahlenwert auf";
+        }
+      }
+      
+      function zgNr1() {
+        linkeBox = Math.floor((Math.random() * 10) + 1);
+        document.getElementById("EINS").innerHTML = linkeBox;
+        vergleich();
+      }
+    
+      function zgNr2() {
+        rechteBox = Math.floor((Math.random() * 10) + 1);
+        document.getElementById("ZWEI").innerHTML = rechteBox;
+        vergleich();
+      }
+  
+</script>
+</body>
+</html>
